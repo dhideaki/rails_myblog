@@ -17,9 +17,12 @@ class PostsController < ApplicationController
     # @post = Post.new(params[:post])
     # @post = Post.new(params.require(:post).permit(:title, :body))
     @post = Post.new(post_params)
-    @post.save
-    # redirect
-    redirect_to posts_path
+    if @post.save
+      # redirect
+      redirect_to posts_path
+    else
+      render plain: @post.errors.inspect
+    end
   end
   
   private
